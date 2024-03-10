@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CheckboxComponent from './CheckboxComponent'
 
-const Options = (handleGenerateResume) => {
+const Options = ({handleGenerateResume, resumeData}) => {
   const [options, setOptions] = useState({
     experience: false,
     projects: false,
@@ -10,20 +10,7 @@ const Options = (handleGenerateResume) => {
     education: false,
     achievements: false   
   })
-  const [data, setData] = useState({
-    personalInformation: {
-    name: "John Doe",
-    email: "example@gmail.com",
-    number: "1234567890",
-    links: []
-    },
-    experience: [],
-    projects: [],
-    certifications: [],
-    skills: [],
-    education: [],
-    achievements: []
-  })
+  const [data, setData] = useState(resumeData)
   const handleCheck = (title) => {
     setOptions(prev => {
       return {...prev, [title]: !prev[title]}

@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import PersonalSection from './PersonalSection'
+import ExperienceSection from './ExperienceSection'
+import ProjectsSection from './ProjectsSection'
+import AchievementsSection from './AchievementsSection'
+import EducationSection from './EducationSection'
+import SkillsSection from './SkillsSection'
+import CertificationsSection from './CertificationsSection'
 
 // Define styles for the resume
 const styles = StyleSheet.create({
   page: {
-    flexDirection: 'row',
-    backgroundColor: '#E4E4E4',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    padding: 2
   },
   section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
+    margin: 2,
+    // padding: 2,
+    // flexGrow: 1,
   },
   title: {
     fontSize: 24,
@@ -27,10 +36,20 @@ const styles = StyleSheet.create({
 });
 
 // Resume component
-const Resume = ({ data }) => (
+const Resume = ({ data }) => {
+const { options } = data
+console.log({options}, "here")
+  return(
   <Document>
     <Page size="A4" style={styles.page}>
-      <View style={styles.section}>
+      <PersonalSection data={data.personalInformation} sectionName=" Details" />
+      {options.experience && <ExperienceSection data={data.experience} sectionName= "Experience" />}
+      {options.projects && <ProjectsSection data={data.projects} sectionName= "Projects" />}
+      {options.achievements && <AchievementsSection data={data.achievements} sectionName= "Achievements" />}
+      {options.education && <EducationSection data={data.education} sectionName= "Education" />}
+      {options.certifications && <CertificationsSection data={data.certifications} sectionName= "Certifications" />}
+      {options.skills && <SkillsSection data={data.skills} sectionName= "Skills" />}
+      {/* <View style={styles.section}>
         <Text style={styles.title}>{data.name}</Text>
         <Text style={styles.text}>{data.email}</Text>
         <Text style={styles.text}>{data.phone}</Text>
@@ -55,9 +74,10 @@ const Resume = ({ data }) => (
             <Text style={styles.text}>{exp.description}</Text>
           </View>
         ))}
-      </View>
+      </View> */}
     </Page>
   </Document>
 );
+}
 
 export default Resume;
